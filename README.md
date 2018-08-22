@@ -12,9 +12,9 @@ This npm module in Angular package format provides both a solution for using SVG
 ## Installation
 
 ```
-#: npm i ng-svg-sprite --save-dev
+#: npm i ng-svg-icons --save-dev
 or
-#: yarn add ng-svg-sprite --dev
+#: yarn add ng-svg-icons --dev
 
 ```
 
@@ -22,7 +22,7 @@ After installing the package you can import it into any application’s app.modu
 `@NgModule` imports array:
 
 ```javascript
-import { SvgIconModule } from 'ng-svg-sprite'; // <-- this
+import { SvgIconModule } from 'ng-svg-icons'; // <-- this
 
 @NgModule({
   declarations: [
