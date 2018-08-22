@@ -1,0 +1,17 @@
+:host.fill use,
+:host.fill svg {
+  fill: currentColor;
+  stroke: transparent;
+}
+
+:host.stroke use,
+:host.stroke svg {
+  fill: transparent;
+  stroke: currentColor;
+}
+
+:host.both use,
+:host.both svg {
+  fill: currentColor;
+  stroke: currentColor;
+}

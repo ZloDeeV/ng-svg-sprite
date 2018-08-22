@@ -1,27 +1,110 @@
-# NgSvgSprite
+# SVG icon package for Angular 6
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.4.
+This npm module in Angular package format provides both a solution for using SVG sprites and a component for including them.
 
-## Development server
+## Use Cases
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- include single-color icons from a sprite
+- fill and stroke icons dynamically via CSS
+- achieve hover/focus effects via CSS
+- scale icons dynamically
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+#: npm i ng-svg-sprite --save-dev
+or
+#: yarn add ng-svg-sprite --dev
 
-## Build
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+After installing the package you can import it into any application’s app.module.ts by simply including it in its
+`@NgModule` imports array:
 
-## Running unit tests
+```javascript
+import { SvgIconModule } from 'ng-svg-sprite'; // <-- this
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    SvgIconModule // <-- this
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-## Running end-to-end tests
+## Usage
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+To use your SVGs as a sprite you need to:
 
-## Further help
+1. Generate a SVG sprite using a script
+2. Include the `svg-icon` component with the proper sprite path and SVG name
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Step 1: Generate the sprite
+
+Add the library [for sprite generation svg2sprite](https://github.com/mrmlnc/svg2sprite-cli) as a devDependency:
+
+```
+#: npm i svg2sprite-cli --save-dev
+or
+#: yarn add svg2sprite-cli --dev
+
+and execute the script:
+#: svg2sprite ./src/assets/icons ./src/assets/sprites/sprite.svg --stripAttrs fill --stripAttrs stroke --stripAttrs id
+```
+
+Each time you add an icon, you need to rerun the script generating the sprite. You might want to add it to your npm scripts:
+
+__Note: the fill and stroke properties are removed from the icon so they can be filled via CSS__
+
+The script will take all SVG icons from `src/app/assets/icons` and create a sprite SVG into
+`src/app/assets/sprites` using the [svg symbols technique](https://css-tricks.com/svg-symbol-good-choice-icons/).
+
+```
+app
+└── assets
+    └── icons (icons source)
+        └── icon-1.svg
+        └── icon-2.svg
+    └── sprites (sprite destination)
+        └── sprite.svg
+```
+
+### Step 2: Use the component
+
+Now you can include icons by using the `svg-icon` component directive:
+
+```html
+<!-- here including 'cart' SVG from the sprite -->
+
+<svg-icon
+  [src]="'assets/sprites/sprite.svg#cart'"
+  [width]="'22px'"
+  [classes]="'icon-class'"
+></svg-icon>
+
+<!-- or with a dynamic icon name -->
+
+<svg-icon
+  [src]="'assets/sprites/sprite.svg#' + iconName"
+  [width]="'50%'"
+></svg-icon>
+```
+
+## Options
+
+- `src` - icon source name, the syntax is `path/file#icon` where `path` is relative to app folder, `file` is
+the name of the sprite and `icon` is the filename of the svg icon.
+- `width` *optional* - width of the svg in any length unit, i.e. `32px`, `50%`, `auto` etc., default is `100%`
+- `height` *optional* - the height of the svg in any length unit, if undefined height will equal the width
+- `classes` *optional* - class name for this icon, default is `icon`
+- `viewBox` *optional* - define lengths and coordinates in order to scale to fit the total space available (to be used if the viewBox of the SVG is missing)
+- `preserveAspectRatio` *optional* - manipulate the aspect ratio, only in combination with `viewBox` (see SVG standard for details)
+- `colorFor` *optional* - color will be set only for `stroke`, `fill`, or for `both` properties (some icons can be stroked)
+
+## Compatible Angular versions
+This library is optimized for Angular 6.x.

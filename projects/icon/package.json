@@ -1,0 +1,24 @@
+{
+  "name": "ng-svg-icons",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Alex ZloDeeV",
+  "description": "Angular 6 package for using inline SVG icons",
+  "bugs": {
+    "url": "https://github.com/ZloDeeV/ng-svg-sprite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZloDeeV/ng-svg-sprite.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+  },
+  "keywords": [
+    "angular",
+    "icon",
+    "svg",
+    "sprite"
+  ]
+}
