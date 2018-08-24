@@ -1,3 +1,8 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 :host.fill use,
 :host.fill svg {
   fill: currentColor;
